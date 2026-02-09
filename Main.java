@@ -15,6 +15,16 @@ public class Main {
 
         ArrayList<String> cardData = getFileData("src/Data");
 
+
+        //convert everything to a num so jack =11, Queen=12, king=13, and Ace=14 and rest is the rest 2=2, 3=3, etc.
+        // Once you convert it then check for the smallest one and give that a rank of 1 and then so fourth until ypu get the largets bid value
+        // loop it for each time as maybe like data points have 2 then check for the second num
+        //then you can keep on like doing it till no 2s, the go tp three
+        // create two arrays one for the cards
+//        // you multiply the rank and the bid value
+//        find total bid value
+
+
         for (int i = 0; i < cardData.size(); i++) {
             String line = cardData.get(i);
             int bar = line.indexOf("|");
@@ -27,6 +37,9 @@ public class Main {
                 hand[a] = cards.substring(position, comma);
                 position = comma + 1;
             }
+
+            int [] bidValue = new int[3];
+
 
             int numFives = 0;
             int numFours = 0;
