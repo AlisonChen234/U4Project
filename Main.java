@@ -12,6 +12,7 @@ public class Main {
         int twoPairs = 0;
         int onePair = 0;
         int highCards = 0;
+        int rank =0;
 
         ArrayList<String> cardData = getFileData("src/Data");
 
@@ -30,15 +31,33 @@ public class Main {
             int bar = line.indexOf("|");
             String cards = line.substring(0, bar) + ",";
 
-            String[] hand = new String[5];
+            String[] card = new String[5];
             int position = 0;
             for (int a = 0; a < 5; a++) {
                 int comma = cards.indexOf(",", position);
-                hand[a] = cards.substring(position, comma);
+                card[a] = cards.substring(position, comma);
                 position = comma + 1;
             }
 
             int [] bidValue = new int[3];
+
+            int totalvalue = totalValue+ rank* bidValue.Of[x]
+
+                if (card.equals("Ace")) { return 14; }
+                else if (card.equals("King")) { return 13; }
+                else if (card.equals("Queen")) { return 12; }
+                else if (card.equals("Jack")) { return 11; }
+                else if (card.equals("10")) { return 10; }
+                else if (card.equals("9")) { return 9; }
+                else if (card.equals("8")) { return 8; }
+                else if (card.equals("7")) { return 7; }
+                else if (card.equals("6")) { return 6; }
+                else if (card.equals("5")) { return 5; }
+                else if (card.equals("4")) { return 4; }
+                else if (card.equals("3")) { return 3; }
+                return 2;
+            }
+
 
 
             int numFives = 0;
@@ -46,40 +65,43 @@ public class Main {
             int numThrees = 0;
             int numPairs = 0;
 
+
+            // HAVE TO CHANGE EVERYTHING FROM /EQUALS  TO ==
+
             int count1 = 1;
-            if (hand[0].equals(hand[1])) { count1++; }
-            if (hand[0].equals(hand[2])) { count1++; }
-            if (hand[0].equals(hand[3])) { count1++; }
-            if (hand[0].equals(hand[4])) { count1++; }
+            if (card[0]==(card[1])) { count1++; }
+            if (card[0].equals(card[2])) { count1++; }
+            if (card[0].equals(card[3])) { count1++; }
+            if (card[0].equals(card[4])) { count1++; }
             if (count1 == 5) { numFives++; }
             if (count1 == 4) { numFours++; }
             if (count1 == 3) { numThrees++; }
             if (count1 == 2) { numPairs++; }
 
 
-            if (!hand[1].equals(hand[0])) {
+            if (!card[1].equals(card[0])) {
                 int count2 = 1;
-                if (hand[1].equals(hand[2])) { count2++; }
-                if (hand[1].equals(hand[3])) { count2++; }
-                if (hand[1].equals(hand[4])) { count2++; }
+                if (card[1].equals(card[2])) { count2++; }
+                if (card[1].equals(card[3])) { count2++; }
+                if (card[1].equals(card[4])) { count2++; }
                 if (count2 == 4) { numFours++; }
                 if (count2 == 3) { numThrees++; }
                 if (count2 == 2) { numPairs++; }
             }
 
 
-            if (!hand[2].equals(hand[0]) && !hand[2].equals(hand[1])) {
+            if (!card[2].equals(card[0]) && !card[2].equals(card[1])) {
                 int count3 = 1;
-                if (hand[2].equals(hand[3])) { count3++; }
-                if (hand[2].equals(hand[4])) { count3++; }
+                if (card[2].equals(card[3])) { count3++; }
+                if (card[2].equals(card[4])) { count3++; }
                 if (count3 == 3) { numThrees++; }
                 if (count3 == 2) { numPairs++; }
             }
 
 
-            if (!hand[3].equals(hand[0]) && !hand[3].equals(hand[1]) && !hand[3].equals(hand[2])) {
+            if (!card[3].equals(card[0]) && !card[3].equals(card[1]) && !card[3].equals(card[2])) {
                 int count4 = 1;
-                if (hand[3].equals(hand[4])) {
+                if (card[3].equals(card[4])) {
                     count4++;
                 }
                 if (count4 == 2) {
