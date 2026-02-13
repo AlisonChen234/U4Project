@@ -33,19 +33,19 @@ public class Main {
 
             int handStrength = calculateStrength(card);
 
-            if (handStrength == 7) { 
+            if (handStrength == 7) {
                 fiveOfKind++; }
-            else if (handStrength == 6) { 
+            else if (handStrength == 6) {
                 fourOfKind++; }
-            else if (handStrength == 5) { 
+            else if (handStrength == 5) {
                 fullHouse++; }
-            else if (handStrength == 4) { 
+            else if (handStrength == 4) {
                 threeOfKind++; }
             else if (handStrength == 3) {
                 twoPairs++; }
-            else if (handStrength == 2) { 
+            else if (handStrength == 2) {
                 onePair++; }
-            else { 
+            else {
                 highCards++; }
 
             int rank = 1;
@@ -108,18 +108,30 @@ public class Main {
 
     public static int getVal(String card) {
         int value = 2;
-        if (card.equals("Ace")) { value = 14; }
-        else if (card.equals("King")) { value = 13; }
-        else if (card.equals("Queen")) { value = 12; }
-        else if (card.equals("Jack")) { value = 11; }
-        else if (card.equals("10")) { value = 10; }
-        else if (card.equals("9")) { value = 9; }
-        else if (card.equals("8")) { value = 8; }
-        else if (card.equals("7")) { value = 7; }
-        else if (card.equals("6")) { value = 6; }
-        else if (card.equals("5")) { value = 5; }
-        else if (card.equals("4")) { value = 4; }
-        else if (card.equals("3")) { value = 3; }
+        if (card.equals("Ace")) {
+            value = 14; }
+        else if (card.equals("King")) {
+            value = 13; }
+        else if (card.equals("Queen")) {
+            value = 12; }
+        else if (card.equals("Jack")) {
+            value = 11; }
+        else if (card.equals("10")) {
+            value = 10; }
+        else if (card.equals("9")) { 
+            value = 9; }
+        else if (card.equals("8")) {
+            value = 8; }
+        else if (card.equals("7")) {
+            value = 7; }
+        else if (card.equals("6")) {
+            value = 6; }
+        else if (card.equals("5")) {
+            value = 5; }
+        else if (card.equals("4")) {
+            value = 4; }
+        else if (card.equals("3")) {
+            value = 3; }
         return value;
     }
 
@@ -131,20 +143,31 @@ public class Main {
         int finalStrength = 1;
 
         int count1 = 1;
-        if (card[0].equals(card[1])) { count1++; }
-        if (card[0].equals(card[2])) { count1++; }
-        if (card[0].equals(card[3])) { count1++; }
-        if (card[0].equals(card[4])) { count1++; }
-        if (count1 == 5) { numFives++; }
-        if (count1 == 4) { numFours++; }
-        if (count1 == 3) { numThrees++; }
-        if (count1 == 2) { numPairs++; }
+        if (card[0].equals(card[1])) {
+            count1++; }
+        if (card[0].equals(card[2])) {
+            count1++; }
+        if (card[0].equals(card[3])) {
+            count1++; }
+        if (card[0].equals(card[4])) {
+            count1++; }
+        if (count1 == 5) {
+            numFives++; }
+        if (count1 == 4) {
+            numFours++; }
+        if (count1 == 3) {
+            numThrees++; }
+        if (count1 == 2) {
+            numPairs++; }
 
         if (!card[1].equals(card[0])) {
             int count2 = 1;
-            if (card[1].equals(card[2])) { count2++; }
-            if (card[1].equals(card[3])) { count2++; }
-            if (card[1].equals(card[4])) { count2++; }
+            if (card[1].equals(card[2])) {
+                count2++; }
+            if (card[1].equals(card[3])) {
+                count2++; }
+            if (card[1].equals(card[4])) {
+                count2++; }
             if (count2 == 4) { numFours++; }
             if (count2 == 3) { numThrees++; }
             if (count2 == 2) { numPairs++; }
@@ -152,24 +175,36 @@ public class Main {
 
         if (!card[2].equals(card[0]) && !card[2].equals(card[1])) {
             int count3 = 1;
-            if (card[2].equals(card[3])) { count3++; }
-            if (card[2].equals(card[4])) { count3++; }
-            if (count3 == 3) { numThrees++; }
-            if (count3 == 2) { numPairs++; }
+            if (card[2].equals(card[3])) {
+                count3++; }
+            if (card[2].equals(card[4])) {
+                count3++; }
+            if (count3 == 3) {
+                numThrees++; }
+            if (count3 == 2) {
+                numPairs++; }
         }
 
         if (!card[3].equals(card[0]) && !card[3].equals(card[1]) && !card[3].equals(card[2])) {
             int count4 = 1;
-            if (card[3].equals(card[4])) { count4++; }
-            if (count4 == 2) { numPairs++; }
+            if (card[3].equals(card[4])) {
+                count4++; }
+            if (count4 == 2) {
+                numPairs++; }
         }
 
-        if (numFives == 1) { finalStrength = 7; }
-        else if (numFours == 1) { finalStrength = 6; }
-        else if (numThrees == 1 && numPairs == 1) { finalStrength = 5; }
-        else if (numThrees == 1) { finalStrength = 4; }
-        else if (numPairs == 2) { finalStrength = 3; }
-        else if (numPairs == 1) { finalStrength = 2; }
+        if (numFives == 1) {
+            finalStrength = 7; }
+        else if (numFours == 1) {
+            finalStrength = 6; }
+        else if (numThrees == 1 && numPairs == 1) {
+            finalStrength = 5; }
+        else if (numThrees == 1) {
+            finalStrength = 4; }
+        else if (numPairs == 2) {
+            finalStrength = 3; }
+        else if (numPairs == 1) {
+            finalStrength = 2; }
 
         return finalStrength;
     }
