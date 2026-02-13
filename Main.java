@@ -33,13 +33,20 @@ public class Main {
 
             int handStrength = calculateStrength(card);
 
-            if (handStrength == 7) { fiveOfKind++; }
-            else if (handStrength == 6) { fourOfKind++; }
-            else if (handStrength == 5) { fullHouse++; }
-            else if (handStrength == 4) { threeOfKind++; }
-            else if (handStrength == 3) { twoPairs++; }
-            else if (handStrength == 2) { onePair++; }
-            else { highCards++; }
+            if (handStrength == 7) { 
+                fiveOfKind++; }
+            else if (handStrength == 6) { 
+                fourOfKind++; }
+            else if (handStrength == 5) { 
+                fullHouse++; }
+            else if (handStrength == 4) { 
+                threeOfKind++; }
+            else if (handStrength == 3) {
+                twoPairs++; }
+            else if (handStrength == 2) { 
+                onePair++; }
+            else { 
+                highCards++; }
 
             int rank = 1;
             for (int j = 0; j < cardData.size(); j++) {
@@ -49,11 +56,11 @@ public class Main {
                     String otherCardsStr = line1.substring(0, bar1) + ",";
 
                     String[] otherCard = new String[5];
-                    int otherPos = 0;
+                    int otherHands = 0;
                     for (int b = 0; b < 5; b++) {
-                        int c = otherCardsStr.indexOf(",", otherPos);
-                        otherCard[b] = otherCardsStr.substring(otherPos, c);
-                        otherPos = c + 1;
+                        int c = otherCardsStr.indexOf(",", otherHands);
+                        otherCard[b] = otherCardsStr.substring(otherHands, c);
+                        otherHands = c + 1;
                     }
 
                     if (compareHands(card, otherCard) == 1) {
@@ -76,21 +83,21 @@ public class Main {
 
     public static int compareHands(String[] hand1, String[] hand2) {
         int result = 0;
-        int s1 = calculateStrength(hand1);
-        int s2 = calculateStrength(hand2);
+        int str1 = calculateStrength(hand1);
+        int str2 = calculateStrength(hand2);
 
-        if (s1 > s2) {
+        if (str1 > str2) {
             result = 1;
-        } else if (s1 < s2) {
+        } else if (str1< str2) {
             result = -1;
         } else {
             int i = 0;
             while (i < 5 && result == 0) {
-                int v1 = getVal(hand1[i]);
-                int v2 = getVal(hand2[i]);
-                if (v1 > v2) {
+                int val1 = getVal(hand1[i]);
+                int val2 = getVal(hand2[i]);
+                if (val1 > val2) {
                     result = 1;
-                } else if (v1 < v2) {
+                } else if (val1 < val2) {
                     result = -1;
                 }
                 i++;
