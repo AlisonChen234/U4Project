@@ -12,17 +12,16 @@ public class Main {
         int twoPairs = 0;
         int onePair = 0;
         int highCards = 0;
+        int wildJacks=0;
 
         ArrayList<String> cardData = getFileData("src/Data");
         int totalBidValue = 0;
 
         for (int i = 0; i < cardData.size(); i++) {
             String line = cardData.get(i);
-
-
             int bar = line.indexOf("|");
             String cards = line.substring(0, bar) + ",";
-            int bid = Integer.parseInt(line.substring(bar + 1));
+            int bidvalue = Integer.parseInt(line.substring(bar + 1));
 
             String[] card = new String[5];
             int position = 0;
@@ -32,23 +31,22 @@ public class Main {
                 position = comma + 1;
             }
 
-            int currentStrength = calculateStrength(card);
+            int handStrength = calculateStrength(card);
 
-            if (currentStrength == 7) fiveOfKind++;
-            else if (currentStrength == 6) fourOfKind++;
-            else if (currentStrength == 5) fullHouse++;
-            else if (currentStrength == 4) threeOfKind++;
-            else if (currentStrength == 3) twoPairs++;
-            else if (currentStrength == 2) onePair++;
-            else highCards++;
-
+            if (handStrength == 7) { fiveOfKind++; }
+            else if (handStrength == 6) { fourOfKind++; }
+            else if (handStrength == 5) { fullHouse++; }
+            else if (handStrength == 4) { threeOfKind++; }
+            else if (handStrength == 3) { twoPairs++; }
+            else if (handStrength == 2) { onePair++; }
+            else { highCards++; }
 
             int rank = 1;
             for (int j = 0; j < cardData.size(); j++) {
                 if (i != j) {
-                    String otherLine = cardData.get(j);
-                    int otherBar = otherLine.indexOf("|");
-                    String otherCardsStr = otherLine.substring(0, otherBar) + ",";
+                    String line1 = cardData.get(j);
+                    int bar1 = line1.indexOf("|");
+                    String otherCardsStr = line1.substring(0, bar1) + ",";
 
                     String[] otherCard = new String[5];
                     int otherPos = 0;
@@ -58,13 +56,12 @@ public class Main {
                         otherPos = c + 1;
                     }
 
-
-                    if (isStronger(card, otherCard)) {
+                    if (compareHands(card, otherCard) == 1) {
                         rank++;
                     }
                 }
             }
-            totalBidValue += bid * rank;
+            totalBidValue += bidvalue * rank;
         }
 
         System.out.println("Number of five of a kind hands: " + fiveOfKind);
@@ -77,36 +74,46 @@ public class Main {
         System.out.println("Total Bid Value: " + totalBidValue);
     }
 
-
-    public static boolean isStronger(String[] hand1, String[] hand2) {
+    public static int compareHands(String[] hand1, String[] hand2) {
+        int result = 0;
         int s1 = calculateStrength(hand1);
         int s2 = calculateStrength(hand2);
 
-        if (s1 != s2) return s1 > s2;
-
-
-        for (int i = 0; i < 5; i++) {
-            int v1 = getVal(hand1[i]);
-            int v2 = getVal(hand2[i]);
-            if (v1 != v2) return v1 > v2;
+        if (s1 > s2) {
+            result = 1;
+        } else if (s1 < s2) {
+            result = -1;
+        } else {
+            int i = 0;
+            while (i < 5 && result == 0) {
+                int v1 = getVal(hand1[i]);
+                int v2 = getVal(hand2[i]);
+                if (v1 > v2) {
+                    result = 1;
+                } else if (v1 < v2) {
+                    result = -1;
+                }
+                i++;
+            }
         }
-        return false;
+        return result;
     }
 
     public static int getVal(String card) {
-        if (card.equals("Ace")) return 14;
-        if (card.equals("King")) return 13;
-        if (card.equals("Queen")) return 12;
-        if (card.equals("Jack")) return 11;
-        if (card.equals("10")) return 10;
-        if (card.equals("9")) return 9;
-        if (card.equals("8")) return 8;
-        if (card.equals("7")) return 7;
-        if (card.equals("6")) return 6;
-        if (card.equals("5")) return 5;
-        if (card.equals("4")) return 4;
-        if (card.equals("3")) return 3;
-        return 2;
+        int value = 2;
+        if (card.equals("Ace")) { value = 14; }
+        else if (card.equals("King")) { value = 13; }
+        else if (card.equals("Queen")) { value = 12; }
+        else if (card.equals("Jack")) { value = 11; }
+        else if (card.equals("10")) { value = 10; }
+        else if (card.equals("9")) { value = 9; }
+        else if (card.equals("8")) { value = 8; }
+        else if (card.equals("7")) { value = 7; }
+        else if (card.equals("6")) { value = 6; }
+        else if (card.equals("5")) { value = 5; }
+        else if (card.equals("4")) { value = 4; }
+        else if (card.equals("3")) { value = 3; }
+        return value;
     }
 
     public static int calculateStrength(String[] card) {
@@ -114,6 +121,7 @@ public class Main {
         int numFours = 0;
         int numThrees = 0;
         int numPairs = 0;
+        int finalStrength = 1;
 
         int count1 = 1;
         if (card[0].equals(card[1])) { count1++; }
@@ -149,13 +157,14 @@ public class Main {
             if (count4 == 2) { numPairs++; }
         }
 
-        if (numFives == 1) return 7;
-        if (numFours == 1) return 6;
-        if (numThrees == 1 && numPairs == 1) return 5;
-        if (numThrees == 1) return 4;
-        if (numPairs == 2) return 3;
-        if (numPairs == 1) return 2;
-        return 1;
+        if (numFives == 1) { finalStrength = 7; }
+        else if (numFours == 1) { finalStrength = 6; }
+        else if (numThrees == 1 && numPairs == 1) { finalStrength = 5; }
+        else if (numThrees == 1) { finalStrength = 4; }
+        else if (numPairs == 2) { finalStrength = 3; }
+        else if (numPairs == 1) { finalStrength = 2; }
+
+        return finalStrength;
     }
 
     public static ArrayList<String> getFileData(String fileName) {
@@ -169,9 +178,8 @@ public class Main {
                     fileData.add(line);
                 }
             }
-            return fileData;
         } catch (FileNotFoundException e) {
-            return fileData;
         }
+        return fileData;
     }
 }
